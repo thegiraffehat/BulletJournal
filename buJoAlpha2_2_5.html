@@ -8,12 +8,13 @@
 <body>
 
 <div class="container">
+	<h1>Daily Tasks</h1>
 <p>
-        <label for="new-task">Add a Task</label><input id="new-task" type="text"><button>Add</button>
+        <label for="new-task">Add a Task</label><input id="new-daily-task" type="text"><button id="add-daily">Add</button>
       </p>
       
       <h3>To do</h3>
-      <ul id="incomplete-tasks">
+      <ul id="incomplete-daily">
         <li>
         	<input type="checkbox">
         	<label>Write eulogy for Jenkins</label>
@@ -39,8 +40,39 @@
       </ul>
       
       <h3>Completed</h3>
-      <ul id="completed-tasks">
-        <li><input type="checkbox" checked><label>Retrieve the beacon on Virmire</label><input type="text"><button class="edit">Edit</button><button class="delete">Delete</button></li>
+      <ul id="completed-daily">
+        <li><input type="checkbox" checked><label>Retrieve the beacon on Eden Prime</label><input type="text"><button class="edit">Edit</button><button class="delete">Delete</button></li>
+      </ul>
+</div>
+
+<div class="container">
+	<h1>Weekly Tasks</h1>
+<p>
+        <label for="new-task">Add a Task</label><input id="new-weekly-task" type="text"><button id="add-weekly">Add</button>
+      </p>
+      
+      <h3>To do</h3>
+      <ul id="incomplete-weekly">
+        <li>
+        	<input type="checkbox">
+        	<label>Visit Feros</label>
+        	<input type="text">
+        	<button class="edit">Edit</button>
+        	<button class="delete">Delete</button>
+        </li>
+        <li>
+        	<input type="checkbox">
+        	<label>Visit Noveria</label>
+        	<input type="text">
+        	<button class="edit">Edit</button
+        		><button class="delete">Delete</button>
+        </li>
+        
+      </ul>
+      
+      <h3>Completed</h3>
+      <ul id="completed-weekly">
+        <li><input type="checkbox" checked><label>Buy Chakwas some icewine</label><input type="text"><button class="edit">Edit</button><button class="delete">Delete</button></li>
       </ul>
 </div>
 

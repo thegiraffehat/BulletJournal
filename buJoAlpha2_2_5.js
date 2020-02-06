@@ -1,14 +1,20 @@
 console.log("Logging you on, Shepard");
 
-var taskInput=document.getElementById("new-task");
-var addButton=document.getElementsByTagName("button")[0];
-var todoBucket=document.getElementById("incomplete-tasks");
-var doneBucket=document.getElementById("completed-tasks");
+var dailyInput=document.getElementById("new-daily-task");
+var weeklyInput=document.getElementById("new-weekly-task");
+var addDailyTask=document.getElementById("add-daily");
+var addWeeklyTask=document.getElementById("add-weekly");
+var todoDailyBucket=document.getElementById("incomplete-daily");
+var doneDailyBucket=document.getElementById("completed-daily");
+var todoWeeklyBucket=document.getElementById("incomplete-weekly");
+var doneWeeklyBucket=document.getElementById("completed-weekly");
 
 
-var createNewTaskElement=function(taskString){
+//functionality for daily task list
 
-	var listItem=document.createElement("li");
+var createNewDailyTask=function(taskString){
+
+	var dailyItem=document.createElement("li");
 	var checkBox=document.createElement("input");
 	var label=document.createElement("label");
 	var editInput=document.createElement("input");
@@ -25,101 +31,221 @@ var createNewTaskElement=function(taskString){
 	deleteButton.innerText="Delete";
 	deleteButton.className="delete";
 
-	listItem.appendChild(checkBox);
-	listItem.appendChild(label);
-	listItem.appendChild(editInput);
-	listItem.appendChild(editButton);
-	listItem.appendChild(deleteButton);
-	return listItem;
+	dailyItem.appendChild(checkBox);
+	dailyItem.appendChild(label);
+	dailyItem.appendChild(editInput);
+	dailyItem.appendChild(editButton);
+	dailyItem.appendChild(deleteButton);
+	return dailyItem;
 }
 
 
 //add a task
-var addTask=function(){
+var addDaily=function(){
 	console.log("I added your task, Shepard");
 
-	var listItem=createNewTaskElement(taskInput.value);
+	var dailyItem=createNewDailyTask(dailyInput.value);
 
-	todoBucket.appendChild(listItem);
-	bindTaskEvents(listItem, taskCompleted);
-	taskInput.value="";
+	todoDailyBucket.appendChild(dailyItem);
+	bindDailyEvents(dailyItem, dailyCompleted);
+	dailyInput.value="";
 
 }
 
 //edit a task
 
-var editTask=function(){
+var editDaily=function(){
 
-var listItem=this.parentNode;
+var dailyItem=this.parentNode;
 
-var editInput=listItem.querySelector('input[type=text]');
-var label=listItem.querySelector("label");
-var containsClass=listItem.classList.contains("editMode");
+var editInput=dailyItem.querySelector('input[type=text]');
+var label=dailyItem.querySelector("label");
+var containsClass=dailyItem.classList.contains("editMode");
 		if(containsClass){
 			label.innerText=editInput.value;
 		}else{
 			editInput.value=label.innerText;
 		}
-		listItem.classList.toggle("editMode");
+		dailyItem.classList.toggle("editMode");
 }
 
 
 
 
 //delete a task
-var deleteTask=function(){
+var deleteDaily=function(){
 		console.log("I deleted your task, Shepard");
 
-		var listItem=this.parentNode;
-		var ul=listItem.parentNode;
-		ul.removeChild(listItem);
+		var dailyItem=this.parentNode;
+		var ul=dailyItem.parentNode;
+		ul.removeChild(dailyItem);
 
 }
 
 
 //mark a task as completed
-var taskCompleted=function(){
+var dailyCompleted=function(){
 		console.log("Your task has been marked as complete, Shepard");
 	
-	var listItem=this.parentNode;
-	doneBucket.appendChild(listItem);
-				bindTaskEvents(listItem, taskIncomplete);
+	var dailyItem=this.parentNode;
+	doneDailyBucket.appendChild(dailyItem);
+				bindDailyEvents(dailyItem, dailyIncomplete);
 
 }
 
 //mark a task as incomplete
-var taskIncomplete=function(){
+var dailyIncomplete=function(){
 		console.log("I've moved your task back to the to do list, Shepard");
-		var listItem=this.parentNode;
-	todoBucket.appendChild(listItem);
-			bindTaskEvents(listItem,taskCompleted);
+		var dailyItem=this.parentNode;
+	todoDailyBucket.appendChild(dailyItem);
+			bindDailyEvents(dailyItem,dailyCompleted);
 }
 
 
-//ajax request?????
+//ajax request
 var ajaxRequest=function(){
 }
 
 // addButton.onclick=addTask;
-addButton.addEventListener("click",addTask);
-addButton.addEventListener("click",ajaxRequest);
+addDailyTask.addEventListener("click",addDaily);
+addDailyTask.addEventListener("click",ajaxRequest);
 
 
-var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
-	var checkBox=taskListItem.querySelector("input[type=checkbox]");
-	var editButton=taskListItem.querySelector("button.edit");
-	var deleteButton=taskListItem.querySelector("button.delete");
+var bindDailyEvents=function(taskdailyItem,checkBoxEventHandler){
+	var checkBox=taskdailyItem.querySelector("input[type=checkbox]");
+	var editButton=taskdailyItem.querySelector("button.edit");
+	var deleteButton=taskdailyItem.querySelector("button.delete");
 
-			editButton.onclick=editTask;
-			deleteButton.onclick=deleteTask;
+			editButton.onclick=editDaily;
+			deleteButton.onclick=deleteDaily;
 			checkBox.onchange=checkBoxEventHandler;
 }
 
-	for (var i=0; i<todoBucket.children.length;i++){
-		bindTaskEvents(todoBucket.children[i],taskCompleted);
+	for (var i=0; i<todoDailyBucket.children.length;i++){
+		bindDailyEvents(todoDailyBucket.children[i],dailyCompleted);
 	}
 
 
-	for (var i=0; i<doneBucket.children.length;i++){
-		bindTaskEvents(doneBucket.children[i],taskIncomplete);
+	for (var i=0; i<doneDailyBucket.children.length;i++){
+		bindDailyEvents(doneDailyBucket.children[i],dailyIncomplete);
+	}
+
+//functionality for weekly task list
+
+var createNewWeeklyTask=function(taskString){
+
+	var weeklyItem=document.createElement("li");
+	var checkBox=document.createElement("input");
+	var label=document.createElement("label");
+	var editInput=document.createElement("input");
+	var editButton=document.createElement("button");
+	var deleteButton=document.createElement("button");
+
+	label.innerText=taskString;
+
+	checkBox.type="checkbox";
+	editInput.type="text";
+
+	editButton.innerText="Edit";
+	editButton.className="edit";
+	deleteButton.innerText="Delete";
+	deleteButton.className="delete";
+
+	weeklyItem.appendChild(checkBox);
+	weeklyItem.appendChild(label);
+	weeklyItem.appendChild(editInput);
+	weeklyItem.appendChild(editButton);
+	weeklyItem.appendChild(deleteButton);
+	return weeklyItem;
+}
+
+
+//add a task
+var addWeekly=function(){
+	console.log("I added your task, Shepard");
+
+	var weeklyItem=createNewWeeklyTask(weeklyInput.value);
+
+	todoWeeklyBucket.appendChild(weeklyItem);
+	bindWeeklyEvents(weeklyItem, weeklyCompleted);
+	weeklyInput.value="";
+
+}
+
+//edit a task
+
+var editWeekly=function(){
+
+var weeklyItem=this.parentNode;
+
+var editInput=weeklyItem.querySelector('input[type=text]');
+var label=weeklyItem.querySelector("label");
+var containsClass=weeklyItem.classList.contains("editMode");
+		if(containsClass){
+			label.innerText=editInput.value;
+		}else{
+			editInput.value=label.innerText;
+		}
+		weeklyItem.classList.toggle("editMode");
+}
+
+
+
+
+//delete a task
+var deleteWeekly=function(){
+		console.log("I deleted your task, Shepard");
+
+		var weeklyItem=this.parentNode;
+		var ul=weeklyItem.parentNode;
+		ul.removeChild(weeklyItem);
+
+}
+
+
+//mark a task as completed
+var weeklyCompleted=function(){
+		console.log("Your task has been marked as complete, Shepard");
+	
+	var weeklyItem=this.parentNode;
+	doneWeeklyBucket.appendChild(weeklyItem);
+				bindWeeklyEvents(weeklyItem, weeklyIncomplete);
+
+}
+
+//mark a task as incomplete
+var weeklyIncomplete=function(){
+		console.log("I've moved your task back to the to do list, Shepard");
+		var weeklyItem=this.parentNode;
+	todoWeeklyBucket.appendChild(weeklyItem);
+			bindWeeklyEvents(weeklyItem,weeklyCompleted);
+}
+
+
+//ajax request
+var ajaxRequest=function(){
+}
+
+// addButton.onclick=addTask;
+addWeeklyTask.addEventListener("click",addWeekly);
+addWeeklyTask.addEventListener("click",ajaxRequest);
+
+
+var bindWeeklyEvents=function(taskWeeklyItem,checkBoxEventHandler){
+	var checkBox=taskWeeklyItem.querySelector("input[type=checkbox]");
+	var editButton=taskWeeklyItem.querySelector("button.edit");
+	var deleteButton=taskWeeklyItem.querySelector("button.delete");
+
+			editButton.onclick=editWeekly;
+			deleteButton.onclick=deleteWeekly;
+			checkBox.onchange=checkBoxEventHandler;
+}
+
+	for (var i=0; i<todoWeeklyBucket.children.length;i++){
+		bindWeeklyEvents(todoWeeklyBucket.children[i],weeklyCompleted);
+	}
+
+
+	for (var i=0; i<doneWeeklyBucket.children.length;i++){
+		bindWeeklyEvents(doneWeeklyBucket.children[i],weeklyIncomplete);
 	}
