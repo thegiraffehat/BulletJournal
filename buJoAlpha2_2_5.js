@@ -38,7 +38,9 @@ var createNewTask=function(taskString){
 }
 
 var addTask=function(){
-	if(dailyInput.value){
+	var todoItem=this.parentNode;
+	var todoList = todoItem.parentNode;
+	if(todoList===dailyBucket){
 		var todoItem=createNewTask(dailyInput.value);
 
 		todoDailyBucket.appendChild(todoItem);
