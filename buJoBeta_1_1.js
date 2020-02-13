@@ -53,6 +53,7 @@ addNewList.addEventListener('click', function () {
     
     
     completedUL.setAttribute("id", "completed-list-" + listNumber);
+    completedUL.setAttribute("class", "completed");
 
 
     addBtn.addEventListener("click", addTask);
@@ -166,6 +167,7 @@ var taskIncomplete=function(){
 	var incompleteBucketName = document.getElementById(incompleteBucket);
 
 	incompleteBucketName.appendChild(todoItem);
+	todoItem.setAttribute("class", "#completed");
 	bindEvents(todoItem,taskCompleted);
 
 	console.log("I've moved your task back to the to do list, Shepard");

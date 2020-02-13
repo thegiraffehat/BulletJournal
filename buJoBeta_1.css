@@ -54,7 +54,7 @@ input[type="text"]:focus {
 
 /* Basic Style */
 body {
-  background: #fff;
+  background-color: #fff
   color: #333;
   font-family: Lato, sans-serif;
 }
@@ -158,8 +158,13 @@ li > .delete:hover {
   color: #CF2323;
 }
 
+.completed label {
+  text-decoration: line-through;
+  color: #888;
+}
 
-#completed-weekly label {
+
+/*#completed-weekly label {
   text-decoration: line-through;
   color: #888;
 }
@@ -167,5 +172,5 @@ li > .delete:hover {
 #completed-daily label {
   text-decoration: line-through;
   color: #888;
-}
+}*/
 
